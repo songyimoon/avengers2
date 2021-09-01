@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="aaa">
+	<select id="login" resultType="authinfo.AuthinfoDTO">
+		select MEM_ID userId, MEM_PW
+		userPw,
+		MEM_NICK userNick,MEM_IMAGE memImage,
+		MEM_ADDR memAddr,1 grade
+		from member
+		where MEM_ID = #{userId}
+		union
+		select EMP_ID, EMP_PW,
+		EMP_NICK,'',
+		'',0
+		from employees
+		where EMP_ID = #{userId}
+	</select>
+	<select id="findId" resultType="authinfo.AuthinfoDTO">
+		select MEM_ID userId, MEM_NAME userName
+		from member
+		where replace(MEM_PHONE,'-','') = #{userPhone}
+	</select>
+	<select id="findPw" resultType="authinfo.AuthinfoDTO">
+		select MEM_ID userId, MEM_NAME userName
+		from member
+		where MEM_ID = #{userId}
+	</select>
+	<update id="memPwModify" parameterType="model.MemberDTO">
+		update member
+		set MEM_PW = #{memPw}
+		where mem_id = #{memId}
+	</update>
+	
+	<insert id="sendSms" parameterType="model.SmsDTO">
+		insert into sms(sms_num, mem_phone)
+		values(#{smsNum}, #{memPhone})
+	</insert>
+	
+	<select id="findSmsNum" resultType="string">
+		select sms_num
+		from sms
+		where mem_phone = #{userPhone}
+	</select>
+	
+	<delete id="delSmsNum" parameterType="string">
+		delete from sms
+		where mem_phone= #{userPhone}
+	</delete>
+</mapper>

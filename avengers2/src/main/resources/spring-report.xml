@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			"
+>
+
+	<bean class="controller.report.ReportController" />	 
+	<bean class="service.report.ReportListService" />
+	<bean class="service.report.ReportDetailService" />
+	<bean class="service.report.ReportSearchService" />
+	<bean class="service.report.ReportUpdateService" />
+	<bean class="service.report.ReportCancelService" />
+	<bean class="service.report.ReportFinishService" />
+	<bean class="repository.ReportRepository" />
+</beans>
